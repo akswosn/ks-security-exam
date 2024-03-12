@@ -1,6 +1,6 @@
 package com.forlks.kssecurityexam.common.config
 
-import com.forlks.kssecurityexam.common.cache.MeCacheType
+import com.forlks.kssecurityexam.common.cache.KsCacheType
 import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
@@ -9,7 +9,6 @@ import org.springframework.cache.support.SimpleCacheManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 @Configuration
@@ -17,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class CacheConfig {
     @Bean
     fun caffeineCaches(): List<CaffeineCache> {
-        return Arrays.stream(MeCacheType.entries.toTypedArray())
+        return Arrays.stream(KsCacheType.entries.toTypedArray())
                 .map { cache ->
                     CaffeineCache(cache.cacheName, Caffeine.newBuilder().recordStats()
                             .expireAfterWrite(cache.expiredAfterWrite, cache.timeUnit)
